@@ -4,6 +4,9 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
+                <resource id="Softdy_SupportTicketSystem::ticketsystem" title="Softdy Support Ticket System" translate="title" sortOrder="1">
+                    <resource id="Softdy_SupportTicketSystem::manage" title="Ticket Management" translate="title" sortOrder="10" />
+                </resource>
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">

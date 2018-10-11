@@ -1,0 +1,244 @@
+<?php
+
+namespace Softdy\SupportTicketSystem\Setup;
+
+class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
+{
+    public function install(\Magento\Framework\Setup\SchemaSetupInterface $setup, \Magento\Framework\Setup\ModuleContextInterface $context)
+    {
+        $installer = $setup;
+        $installer->startSetup();
+
+        if (!$installer->tableExists('softdy_ticket')) {
+            $table = $installer->getConnection()->newTable(
+                $installer->getTable('softdy_ticket')
+            )
+                ->addColumn(
+                    'ticket_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'identity' => true,
+                        'nullable' => false,
+                        'primary'  => true,
+                        'unsigned' => true,
+                    ],
+                    'Ticket ID'
+                )
+                ->addColumn(
+                    'name',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    [
+                        'nullable' => false
+                    ],
+                    'Ticket Name'
+                )
+                ->addColumn(
+                    'status',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    1,
+                    [],
+                    'Ticket Status'
+                )
+                ->addColumn(
+                    'department_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'nullable' => false,
+                    ],
+                    'Ticket Department'
+                )
+                ->addColumn(
+                    'customer_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'nullable' => false,
+                    ],
+                    'Customer'
+                )
+                ->addColumn(
+                    'priority_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'nullable' => false,
+                    ],
+                    'Ticket Priority'
+                )
+                ->addColumn(
+                    'created_at',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+                    null,
+                    ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT],
+                    'Created At'
+                )->addColumn(
+                    'updated_at',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+                    null,
+                    ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE],
+                    'Updated At')
+                ->setComment('Ticket Table');
+            $installer->getConnection()->createTable($table);
+
+            $table = $installer->getConnection()->newTable(
+                $installer->getTable('softdy_ticket_department')
+            )
+                ->addColumn(
+                    'department_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'identity' => true,
+                        'nullable' => false,
+                        'primary'  => true,
+                        'unsigned' => true,
+                    ],
+                    'Ticket ID'
+                )
+                ->addColumn(
+                    'name',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    [
+                        'nullable' => false
+                    ],
+                    'Department Name'
+                )
+                ->addColumn(
+                    'status',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    1,
+                    [],
+                    'Department Status'
+                )
+                ->setComment('Department Table');
+            $installer->getConnection()->createTable($table);
+
+            $table = $installer->getConnection()->newTable(
+                $installer->getTable('softdy_ticket_priority')
+            )
+                ->addColumn(
+                    'priority_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'identity' => true,
+                        'nullable' => false,
+                        'primary'  => true,
+                        'unsigned' => true,
+                    ],
+                    'Priority ID'
+                )
+                ->addColumn(
+                    'name',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    255,
+                    [
+                        'nullable' => false
+                    ],
+                    'Priority Name'
+                )
+                ->addColumn(
+                    'status',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    1,
+                    [],
+                    'Priority Status'
+                )
+                ->setComment('Priority Table');
+            $installer->getConnection()->createTable($table);
+
+            $table = $installer->getConnection()->newTable(
+                $installer->getTable('softdy_ticket_reply')
+            )
+                ->addColumn(
+                    'reply_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'identity' => true,
+                        'nullable' => false,
+                        'primary'  => true,
+                        'unsigned' => true,
+                    ],
+                    'Reply ID'
+                )
+                ->addColumn(
+                    'ticket_id',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    null,
+                    [
+                        'nullable' => false,
+                    ],
+                    'Ticket ID'
+                )
+                ->addColumn(
+                    'message',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    \Magento\Framework\DB\Ddl\Table::MAX_TEXT_SIZE,
+                    [
+                        'nullable => false'
+                    ],
+                    'Reply Message'
+                )
+                ->addColumn(
+                    'created_at',
+                    \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+                    null,
+                    ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT],
+                    'Created At'
+                )
+                ->setComment('Reply Table');
+            $installer->getConnection()->createTable($table);
+
+            $installer->getConnection()->addIndex(
+                $installer->getTable('softdy_ticket'),
+                $setup->getIdxName(
+                    $installer->getTable('softdy_ticket'),
+                    ['name'],
+                    \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+                ),
+                ['name'],
+                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+            );
+
+            $installer->getConnection()->addIndex(
+                $installer->getTable('softdy_ticket_department'),
+                $setup->getIdxName(
+                    $installer->getTable('softdy_ticket_department'),
+                    ['name'],
+                    \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+                ),
+                ['name'],
+                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+            );
+
+            $installer->getConnection()->addIndex(
+                $installer->getTable('softdy_ticket_priority'),
+                $setup->getIdxName(
+                    $installer->getTable('softdy_ticket_priority'),
+                    ['name'],
+                    \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+                ),
+                ['name'],
+                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+            );
+
+            $installer->getConnection()->addIndex(
+                $installer->getTable('softdy_ticket_reply'),
+                $setup->getIdxName(
+                    $installer->getTable('softdy_ticket_reply'),
+                    ['message'],
+                    \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+                ),
+                ['message'],
+                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_FULLTEXT
+            );
+        }
+
+        $installer->endSetup();
+    }
+}
