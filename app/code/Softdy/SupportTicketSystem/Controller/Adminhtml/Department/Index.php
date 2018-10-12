@@ -1,6 +1,6 @@
 <?php
 
-namespace Softdy\SupportTicketSystem\Controller\Adminhtml\Ticket;
+namespace Softdy\SupportTicketSystem\Controller\Adminhtml\Department;
 
 class Index extends \Magento\Backend\App\Action
 {
@@ -33,8 +33,8 @@ class Index extends \Magento\Backend\App\Action
     {
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->_resultPageFactory->create();
-        $resultPage->setActiveMenu('Softdy_SupportTicketSystem::ticketsystem_manage');
-        $resultPage->getConfig()->getTitle()->prepend(__('Ticket List'));
+        $resultPage->setActiveMenu('Softdy_SupportTicketSystem::ticketsystem_department');
+        $resultPage->getConfig()->getTitle()->prepend(__('Department List'));
 
         return $resultPage;
     }
@@ -46,6 +46,6 @@ class Index extends \Magento\Backend\App\Action
      */
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed('Softdy_SupportTicketSystem::ticketsystem_manage');
+        return $this->_authorization->isAllowed('Softdy_SupportTicketSystem::ticketsystem_department');
     }
 }

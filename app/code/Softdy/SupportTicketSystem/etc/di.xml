@@ -14,4 +14,30 @@
             <argument name="resourceModel" xsi:type="string">Softdy\SupportTicketSystem\Model\ResourceModel\Ticket</argument>
         </arguments>
     </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="softdy_supportticketsystem_department_listing_data_source" xsi:type="string">Softdy\SupportTicketSystem\Model\ResourceModel\Department\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Softdy\SupportTicketSystem\Model\ResourceModel\Department\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">softdy_ticket_department</argument>
+            <argument name="resourceModel" xsi:type="string">Softdy\SupportTicketSystem\Model\ResourceModel\Department</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="softdy_supportticketsystem_priority_listing_data_source" xsi:type="string">Softdy\SupportTicketSystem\Model\ResourceModel\Priority\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Softdy\SupportTicketSystem\Model\ResourceModel\Priority\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">softdy_ticket_priority</argument>
+            <argument name="resourceModel" xsi:type="string">Softdy\SupportTicketSystem\Model\ResourceModel\Department</argument>
+        </arguments>
+    </virtualType>
 </config>

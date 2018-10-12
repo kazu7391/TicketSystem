@@ -10,6 +10,8 @@ class Ticket extends \Magento\Framework\Model\AbstractModel implements \Magento\
 
     protected $_eventPrefix = 'softdy_ticket';
 
+    protected $_idFieldName = 'ticket_id';
+
     protected function _construct()
     {
         $this->_init('Softdy\SupportTicketSystem\Model\ResourceModel\Ticket');

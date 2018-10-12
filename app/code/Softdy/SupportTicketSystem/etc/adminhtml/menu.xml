@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Softdy_SupportTicketSystem::ticketsystem" title="Softdy" translate="title" sortOrder="30" module="Softdy_SupportTicketSystem" resource="Softdy_SupportTicketSystem::ticketsystem"/>
+        <add id="Softdy_SupportTicketSystem::ticketsystem" title="Softdy Support System" translate="title" sortOrder="30" module="Softdy_SupportTicketSystem" resource="Softdy_SupportTicketSystem::ticketsystem"/>
         <add id="Softdy_SupportTicketSystem::ticketsystem_manage" title="Ticket Management" translate="title" module="Softdy_SupportTicketSystem" sortOrder="10" parent="Softdy_SupportTicketSystem::ticketsystem" action="softdy/ticket/index/" resource="Softdy_SupportTicketSystem::manage"/>
-        <add id="Softdy_SupportTicketSystem::ticketsystem_configuration" title="Configuration" translate="title" module="Softdy_SupportTicketSystem" sortOrder="10" parent="Softdy_SupportTicketSystem::ticketsystem" action="adminhtml/system_config/edit/section/ticketsystem" resource="Softdy_SupportTicketSystem::config_supportticketsystem"/>
+        <add id="Softdy_SupportTicketSystem::ticketsystem_department" title="Ticket Department" translate="title" module="Softdy_SupportTicketSystem" sortOrder="20" parent="Softdy_SupportTicketSystem::ticketsystem" action="softdy/department/index/" resource="Softdy_SupportTicketSystem::department"/>
+        <add id="Softdy_SupportTicketSystem::ticketsystem_priority" title="Ticket Priority" translate="title" module="Softdy_SupportTicketSystem" sortOrder="30" parent="Softdy_SupportTicketSystem::ticketsystem" action="softdy/priority/index/" resource="Softdy_SupportTicketSystem::priority"/>
+        <add id="Softdy_SupportTicketSystem::ticketsystem_configuration" title="Configuration" translate="title" module="Softdy_SupportTicketSystem" sortOrder="40" parent="Softdy_SupportTicketSystem::ticketsystem" action="adminhtml/system_config/edit/section/ticketsystem" resource="Softdy_SupportTicketSystem::config_supportticketsystem"/>
     </menu>
 </config>

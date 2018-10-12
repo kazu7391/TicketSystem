@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: My PC
- * Date: 11/10/2018
- * Time: 4:35 CH
- */
 
 namespace Softdy\SupportTicketSystem\Model\ResourceModel\Ticket;
 
@@ -61,7 +55,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             )->joinLeft(
                 ['fourthTable' => $this->getTable('customer_entity')],
                 'main_table.customer_id = fourthTable.entity_id',
-                '*'
+                ['fourthTable.firstname as customerName']
             );
     }
 }
